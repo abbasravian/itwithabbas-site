@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+---
+
+<Base title="Privacy" description="How itwithabbas.com handles your data.">
+  <section class="section">
+    <div class="narrow prose">
+      <h1>Privacy</h1>
+      <p>
+        This site is a personal blog. It does not use advertising, tracking cookies or social media pixels.
+      </p>
+      <h2>What I collect</h2>
+      <ul>
+        <li><strong>Hosting logs:</strong> the host (Cloudflare) processes standard technical data such as IP address and browser type to deliver and protect the site.</li>
+        <li><strong>Email:</strong> if you write to me, I keep your message and address only to reply and for as long as the conversation is useful.</li>
+      </ul>
+      <p>If analytics, comments or a newsletter are added later, this page will be updated first.</p>
+      <h2>Your rights</h2>
+      <p>To ask what I hold about you or to have it deleted, email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+      <p class="muted small">Last updated: October 2026.</p>
+    </div>
+  </section>
+</Base>

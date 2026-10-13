@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+---
+
+<Base title="Contact" description="Get in touch with Ghulam Abbas about IT, security or career questions.">
+  <section class="section">
+    <div class="narrow prose">
+      <h1>Contact</h1>
+      <p>
+        Have a question, a topic you'd like me to write about, or a collaboration idea? I read every message, though I
+        can't promise a reply to all of them.
+      </p>
+      <div class="grid" style="margin: 24px 0">
+        <div class="card">
+          <h3>Email</h3>
+          <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+        </div>
+        <div class="card">
+          <h3>LinkedIn</h3>
+          <p><a href={SITE.linkedin} rel="me noopener" target="_blank">linkedin.com/in/abbasravian</a></p>
+        </div>
+      </div>
+      <p class="muted small">
+        Please don't send passwords or sensitive company data. I can't give hands-on support for individual systems
+        by email, but I'm happy to point you in the right direction.
+      </p>
+    </div>
+  </section>
+</Base>

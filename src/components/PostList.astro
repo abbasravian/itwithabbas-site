@@ -1,0 +1,27 @@
+---
+import { CATEGORIES } from '../config';
+
+interface Props {
+  posts: any[];
+}
+const { posts } = Astro.props;
+
+const fmt = new Intl.DateTimeFormat('en-GB', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+const minutes = (body: string = '') => Math.max(1, Math.round(body.split(/\s+/).length / 220));
+---
+
+<ul class="post-list">
+  {
+    posts.map((post) => (
+      <li>
+        <div class="meta">
+          <a class="tag" href={`/blog/category/${post.data.category}`}>{CATEGORIES[post.data.category as keyof typeof CATEGORIES].label}</a>
+          <time datetime={post.data.pubDate.toISOString()}>{fmt.format(post.data.pubDate)}</time>
+          <span>{minutes(post.body)} min read</span>
+        </div>
+        <h3><a href={`/blog/${post.id}`}>{post.data.title}</a></h3>
+        <p>{post.data.description}</p>
+      </li>
+    ))
+  }
+</ul>

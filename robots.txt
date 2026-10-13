@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://itwithabbas.com/sitemap-index.xml

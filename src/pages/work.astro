@@ -49,6 +49,41 @@ const projects = [
   { title: 'Carrier and health-sector data centers', text: 'Designed a 10G top-of-rack data center for a national carrier, and built the datacenter behind a public Health Management Information System.' },
 ];
 
+const events = [
+  {
+    year: '2026', name: 'SecTor', place: 'Toronto, Canada', when: 'October 2026',
+    text: "Three things stuck with me: real exploitability matters more than a CVE's severity score; AI agents with access to systems should be secured like any user identity; and AI is replacing slow, manual workflows, not teams.",
+    img: '/images/sector-2026.jpg', w: 900, h: 923, alt: 'Ghulam Abbas standing in front of the SecTor 2026 sign in Toronto',
+    link: { href: '/blog/sector-2026-takeaways', label: 'Read my takeaways' },
+  },
+  {
+    year: '2026', name: 'Cisco Live USA', place: 'Las Vegas, USA', when: '31 May – 4 June 2026',
+    text: 'Back at the main Cisco event, this time wearing the CCIE Ten Years ribbon.',
+    img: '/images/cisco-live-2026-badge.jpg', w: 800, h: 1212, alt: 'Cisco Live 2026 Las Vegas badge with CCIE and CCIE Ten Years ribbons',
+  },
+  {
+    year: '2025', name: 'Cisco Live Melbourne', place: 'Melbourne, Australia', when: '10 – 13 November 2025',
+    text: 'Connecting with the Cisco community in the Asia-Pacific region. As a CCIE with ten years of certification, I was recognised on the main screen at the event.',
+    img: '/images/melbourne-2025-expo.jpg', w: 900, h: 675, alt: 'Ghulam Abbas walking down the blue carpet under the Cisco sign at Cisco Live Melbourne 2025',
+  },
+  {
+    year: '2024', name: 'SecTor', place: 'Toronto, Canada', when: '22 – 24 October 2024',
+    text: "Three days at the Metro Toronto Convention Centre with around 5,000 in-person attendees and 140+ security vendors. Keynotes came from Leigh Honeywell and Omkhar Arasaratnam, and the programme included the first AI Summit at SecTor alongside the Cloud Security and Executive summits.",
+  },
+  {
+    year: '2024', name: 'Cisco Live USA', place: 'Las Vegas, USA', when: 'June 2024',
+    text: 'Nine sessions across AI readiness, security operations with Cisco XDR and Splunk, Meraki Wi-Fi troubleshooting, zero-trust training and the Networking Innovation Summit, plus time at the Technical Assistance Center.',
+    link: { href: '/blog/cisco-live-2024-lessons', label: 'What I took away' },
+  },
+];
+
+const gallery = [
+  { src: '/images/melbourne-2025-entrance.jpg', w: 700, h: 933, alt: 'Ghulam Abbas at the Cisco Live entrance hall in Melbourne', caption: 'At the entrance hall' },
+  { src: '/images/melbourne-2025-auditorium.jpg', w: 700, h: 934, alt: 'Selfie of Ghulam Abbas in the Cisco Live main auditorium', caption: 'In the main auditorium' },
+  { src: '/images/melbourne-2025-ccie-recognition.jpg', w: 900, h: 885, alt: 'CCIE recognition slide at Cisco Live Melbourne with the name Ghulam Abbas', caption: 'CCIE recognition, with my name on the big screen' },
+  { src: '/images/cisco-live-melbourne-2025.jpg', w: 800, h: 1110, alt: 'Cisco Live Melbourne 2025 badge with CCIE and CCIE Ten Years ribbons', caption: 'My badge, with the CCIE Ten Years ribbon' },
+];
+
 const certs = [
   { group: 'Cisco', items: ['CCIE Data Center', 'CCNP Enterprise', 'CCNP Security', 'CCNA', 'Specialist badges: Data Center Core, Enterprise Core, Enterprise Advanced Infrastructure, Security Core, Network Security Firewalls'] },
   { group: 'Juniper', items: ['JNCIP-ENT', 'JNCIS-ER', 'JNCIA-ER'] },
@@ -88,6 +123,46 @@ const certs = [
           </li>
         ))}
       </ol>
+
+      <h2 id="milestone">Milestone: 10 years as a CCIE</h2>
+      <div class="card feature">
+        <img src="/images/ccie-10-years.jpg" alt="Cisco 10th anniversary CCIE plaque awarded to Ghulam Abbas" width="800" height="1068" loading="lazy" />
+        <div>
+          <p>
+            In October 2025, Cisco marked ten years since I earned my CCIE in Data Center, the company's expert-level
+            certification, first achieved in July 2015. It requires passing both a written exam and a hands-on lab
+            exam, and I've kept it current ever since.
+          </p>
+          <p class="muted small">Cisco's note on the plaque: "Cisco salutes your dedication to excellence in the implementation and maintenance of the world's most sophisticated networks."</p>
+        </div>
+      </div>
+
+      <h2 id="conferences">Conferences &amp; community</h2>
+      <p class="muted" style="max-width:60ch">
+        I make a point of attending the industry's main events in person. It keeps what I write grounded in how the
+        technology is actually used today, and I bring the lessons back to this blog.
+      </p>
+      <div class="grid">
+        {events.map((e) => (
+          <div class="card">
+            {e.img && <img src={e.img} alt={e.alt} width={e.w} height={e.h} loading="lazy" />}
+            <div class="meta"><span class="tag">{e.year}</span><span>{e.place} · {e.when}</span></div>
+            <h3 style="margin-top:6px">{e.name}</h3>
+            <p class="muted">{e.text}</p>
+            {e.link && <p><a href={e.link.href}>{e.link.label} →</a></p>}
+          </div>
+        ))}
+      </div>
+
+      <h3 style="margin-top:2.2em">Cisco Live Melbourne 2025 in photos</h3>
+      <div class="gallery">
+        {gallery.map((g) => (
+          <figure>
+            <img src={g.src} alt={g.alt} width={g.w} height={g.h} loading="lazy" />
+            <figcaption>{g.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
 
       <h2 id="certifications">Certifications and education</h2>
       <div class="cert-groups">

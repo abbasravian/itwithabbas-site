@@ -162,3 +162,15 @@ a.card h3 { color: var(--ink); }
   html { scroll-behavior: auto; }
   a.card { transition: none; }
 }
+
+/* Images in cards and the milestone feature */
+.card img { display: block; width: 100%; height: auto; max-height: 340px; object-fit: contain; background: var(--accent-soft); border-radius: 10px; margin-bottom: 14px; }
+.card.feature { display: grid; gap: 24px; grid-template-columns: minmax(0, 260px) 1fr; align-items: center; }
+.card.feature img { max-height: 420px; margin: 0; }
+@media (max-width: 640px) { .card.feature { grid-template-columns: 1fr; } }
+
+/* Photo gallery */
+.gallery { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 12px; }
+.gallery figure { margin: 0; }
+.gallery img { display: block; width: 100%; height: auto; max-height: 380px; object-fit: contain; background: var(--accent-soft); border-radius: 12px; }
+.gallery figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 8px; }

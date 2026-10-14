@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PostList from '../components/PostList.astro';
+import HeroBackdrop from '../components/HeroBackdrop.astro';
 import { getCollection } from 'astro:content';
 import { SITE, CATEGORIES } from '../config';
 
@@ -11,6 +12,7 @@ const posts = (await getCollection('blog', (p) => !p.data.draft))
 
 <Base>
   <section class="hero">
+    <HeroBackdrop />
     <div class="wrap hero-grid">
       <div class="hero-text">
         <p class="eyebrow">IT leadership, cyber security and teaching</p>

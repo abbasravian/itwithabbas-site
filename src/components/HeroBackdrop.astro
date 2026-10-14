@@ -1,0 +1,148 @@
+---
+// Decorative, looping hero background: four themed scenes crossfade every 6 seconds.
+// Pure SVG + CSS (no images, no JS). Reduced-motion users see one still scene.
+let seed = 7;
+const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+
+// Scene 1: data center racks
+const racks = Array.from({ length: 9 }, (_, r) => ({
+  x: 30 + r * 132,
+  units: Array.from({ length: 20 }, (_, u) => ({ y: 60 + u * 25, blink: rnd() < 0.35, d: (rnd() * 4).toFixed(2) })),
+}));
+
+// Scene 3: network graph
+const nodes = Array.from({ length: 30 }, () => ({ x: 40 + rnd() * 1120, y: 40 + rnd() * 520, r: 2.5 + rnd() * 4 }));
+const links: { a: number; b: number; hot: boolean }[] = [];
+nodes.forEach((n, i) => {
+  nodes
+    .map((m, j) => ({ j, d: Math.hypot(n.x - m.x, n.y - m.y) }))
+    .filter((o) => o.j !== i)
+    .sort((p, q) => p.d - q.d)
+    .slice(0, 2)
+    .forEach((o) => { if (!links.some((l) => (l.a === o.j && l.b === i) || (l.a === i && l.b === o.j))) links.push({ a: i, b: o.j, hot: rnd() < 0.25 }); });
+});
+
+// Scene 4: mentoring staircase
+const steps = Array.from({ length: 6 }, (_, i) => ({ x: 140 + i * 160, h: 70 + i * 62 }));
+const scenes = ['Data centers', 'Cyber security', 'Networks and cloud', 'Mentoring and careers'];
+---
+
+<div class="backdrop" aria-hidden="true">
+  <div class="slide s0">
+    <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+      {racks.map((r) => (
+        <g>
+          <rect x={r.x} y="52" width="112" height="510" rx="6" class="ln fill" />
+          {r.units.map((u) => (
+            <g>
+              <rect x={r.x + 8} y={u.y} width="96" height="19" rx="3" class="ln dim fill2" />
+              <circle cx={r.x + 18} cy={u.y + 9.5} r="2.6" class={u.blink ? 'led blink' : 'led'} style={`animation-delay:${u.d}s`} />
+              <line x1={r.x + 32} y1={u.y + 9.5} x2={r.x + 92} y2={u.y + 9.5} class="ln dim" />
+            </g>
+          ))}
+        </g>
+      ))}
+    </svg>
+  </div>
+
+  <div class="slide s1">
+    <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+      <g class="spin" style="transform-origin:800px 300px">
+        <circle cx="800" cy="300" r="270" class="ln dash" />
+      </g>
+      <g class="spin rev" style="transform-origin:800px 300px">
+        <circle cx="800" cy="300" r="205" class="ln dash2" />
+      </g>
+      <circle cx="800" cy="300" r="140" class="ln dim" />
+      <path d="M800 190 L885 222 V300 C885 362 843 404 800 426 C757 404 715 362 715 300 V222 Z" class="ln thick shieldfill" />
+      <circle cx="800" cy="290" r="18" class="ln thick" />
+      <rect x="793" y="300" width="14" height="40" rx="3" class="ln thick" />
+      {Array.from({ length: 14 }, (_, i) => (
+        <g>
+          <line x1={80 + i * 64} y1="40" x2={80 + i * 64} y2="560" class="ln faint" />
+          <circle cx={80 + i * 64} cy={60 + ((i * 97) % 480)} r="3" class="led blink" style={`animation-delay:${(i % 5) * 0.7}s`} />
+        </g>
+      ))}
+    </svg>
+  </div>
+
+  <div class="slide s2">
+    <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+      {links.map((l) => (
+        <line x1={nodes[l.a].x} y1={nodes[l.a].y} x2={nodes[l.b].x} y2={nodes[l.b].y} class={l.hot ? 'ln flow' : 'ln dim'} />
+      ))}
+      {nodes.map((n) => (
+        <g>
+          <circle cx={n.x} cy={n.y} r={n.r} class="node" />
+          {n.r > 5 && <circle cx={n.x} cy={n.y} r={n.r + 7} class="ln dim" />}
+        </g>
+      ))}
+    </svg>
+  </div>
+
+  <div class="slide s3">
+    <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice">
+      {steps.map((s, i) => (
+        <g>
+          <rect x={s.x} y={560 - s.h} width="140" height={s.h} rx="4" class="ln fill" />
+          <circle cx={s.x + 70} cy={560 - s.h - 52} r={i === 5 ? 20 : 15} class="ln thick" />
+          <path d={`M${s.x + 70 - (i === 5 ? 34 : 26)} ${560 - s.h - 6} q${i === 5 ? 34 : 26} -${i === 5 ? 46 : 36} ${i === 5 ? 68 : 52} 0`} class="ln thick" />
+          {i < 5 && (
+            <path d={`M${s.x + 90} ${560 - s.h - 62} Q${s.x + 150} ${560 - s.h - 120} ${s.x + 215} ${560 - steps[i + 1].h - 66}`} class="ln flow" />
+          )}
+        </g>
+      ))}
+    </svg>
+  </div>
+
+  <div class="labels">
+    {scenes.map((t, i) => <span class={`label l${i}`}>{t}</span>)}
+  </div>
+</div>
+
+<style>
+  .backdrop { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+  .backdrop::before { content: ''; position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at 72% 45%, #2dd4bf33, transparent 60%); }
+  .backdrop::after { z-index: 1; content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #0f1b2dd9 0%, #0f1b2d99 34%, #0f1b2d1a 62%, #0f1b2d00 100%); }
+  .slide { z-index: 0; position: absolute; inset: 0; opacity: 0; animation: cycle 24s infinite backwards; }
+  .s0 { animation-delay: 0s; } .s1 { animation-delay: 6s; } .s2 { animation-delay: 12s; } .s3 { animation-delay: 18s; }
+  .slide svg { width: 100%; height: 100%; display: block; }
+  @keyframes cycle {
+    0% { opacity: 0; transform: scale(1); }
+    6% { opacity: 1; }
+    25% { opacity: 1; }
+    31% { opacity: 0; transform: scale(1.05); }
+    100% { opacity: 0; transform: scale(1.05); }
+  }
+  .ln { fill: none; stroke: #2dd4bf; stroke-width: 2; opacity: 1; }
+  .ln.dim { opacity: 0.6; }
+  .ln.faint { opacity: 0.25; }
+  .ln.thick { stroke-width: 4; opacity: 1; filter: drop-shadow(0 0 6px #2dd4bf); }
+  .fill { fill: #2dd4bf1f; }
+  .fill2 { fill: #2dd4bf14; }
+  .shieldfill { fill: #2dd4bf26; }
+  .dash { stroke-dasharray: 3 14; stroke-width: 3; }
+  .dash2 { stroke-dasharray: 40 18; opacity: 0.7; }
+  .led { fill: #5eead4; opacity: 0.9; filter: drop-shadow(0 0 4px #2dd4bf); }
+  .blink { animation: blink 2.4s ease-in-out infinite; }
+  @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+  .node { fill: #5eead4; opacity: 1; filter: drop-shadow(0 0 6px #2dd4bf); }
+  .flow { stroke-width: 3; stroke-dasharray: 6 12; opacity: 0.9; animation: flow 1.6s linear infinite; }
+  @keyframes flow { to { stroke-dashoffset: -36; } }
+  .spin { animation: spin 60s linear infinite; }
+  .spin.rev { animation-direction: reverse; animation-duration: 90s; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .labels { position: absolute; right: clamp(16px, 4vw, 48px); bottom: 14px; z-index: 2; height: 1.6em; width: 16em; text-align: right; }
+  .label { position: absolute; right: 0; bottom: 0; font-size: 0.82rem; color: #aebccb; opacity: 0; animation: lbl 24s infinite backwards; }
+  .label::before { content: ''; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #2dd4bf; margin-right: 8px; }
+  .l0 { animation-delay: 0s; } .l1 { animation-delay: 6s; } .l2 { animation-delay: 12s; } .l3 { animation-delay: 18s; }
+  @keyframes lbl { 0% { opacity: 0; } 5% { opacity: 1; } 24% { opacity: 1; } 28% { opacity: 0; } 100% { opacity: 0; } }
+
+  @media (max-width: 820px) { .backdrop::before { content: ''; position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse at 72% 45%, #2dd4bf33, transparent 60%); }
+  .backdrop::after { z-index: 1; background: linear-gradient(180deg, #0f1b2dcc, #0f1b2d99); } }
+  @media (prefers-reduced-motion: reduce) {
+    .slide, .label, .blink, .flow, .spin { animation: none; }
+    .s0, .l0 { opacity: 1; }
+  }
+</style>

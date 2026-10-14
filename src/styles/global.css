@@ -212,3 +212,6 @@ a.zoom:hover img { opacity: 0.92; }
   .strip { grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .strip span { font-size: 0.78rem; padding: 18px 8px 8px; }
 }
+
+.hero { position: relative; overflow: hidden; }
+.hero .hero-grid { position: relative; z-index: 1; }

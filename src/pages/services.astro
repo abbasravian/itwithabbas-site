@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+
+if (!SITE.consulting) return Astro.redirect('/contact');
+
+const offers = [
+  {
+    id: 'advisory',
+    title: 'Infrastructure and data center advisory',
+    text: 'Independent review and guidance on data center, network and connectivity design: high availability, capacity planning, and validating vendor proposals before you commit.',
+    fit: 'IT managers planning a data center, network or cloud-connectivity upgrade.',
+  },
+  {
+    id: 'security',
+    title: 'Security governance and compliance',
+    text: 'Building or tightening a security programme: policy frameworks, ISO 27001 and NCA-aligned controls, risk assessments and firewall segmentation reviews.',
+    fit: 'Organisations creating a security framework or preparing for an audit.',
+  },
+  {
+    id: 'continuity',
+    title: 'Disaster recovery and business continuity',
+    text: 'Defining recovery time and recovery point targets, designing DR, and planning realistic failover tests so recovery works when it is needed.',
+    fit: 'Teams whose critical systems have no proven recovery plan.',
+  },
+  {
+    id: 'readiness',
+    title: 'ERP and infrastructure readiness',
+    text: 'Preparing the network, servers, storage and connectivity that large programmes such as SAP depend on, so the platform is ready before go-live.',
+    fit: 'Companies about to start or recover an ERP programme.',
+  },
+  {
+    id: 'training',
+    title: 'Training, mentoring and career guidance',
+    text: 'Technical workshops for IT teams, and one-to-one mentoring for people entering or moving up in IT, including guidance on Cisco and cloud certification paths.',
+    fit: 'IT teams that want to upskill, and individuals planning their next step.',
+  },
+];
+
+const steps = [
+  { n: '1', t: 'Tell me the challenge', d: 'Send a short message describing the problem, the size of your team and your timeline.' },
+  { n: '2', t: 'A short scoping call', d: 'We confirm what you need and whether I am the right person to help.' },
+  { n: '3', t: 'A written proposal', d: 'You receive a clear scope, deliverables and timeline before any work starts.' },
+  { n: '4', t: 'Delivery and handover', d: 'I deliver the work and make sure your team can run with it afterwards.' },
+];
+---
+
+<Base title="Work with me" description="Independent IT infrastructure, cyber security and continuity advisory, plus technical training and mentoring, from Ghulam Abbas, CCIE Data Center.">
+  <section class="section">
+    <div class="wrap">
+      <h1>Work with me</h1>
+      <p class="muted" style="max-width:62ch">
+        I help organisations make sound infrastructure and security decisions, and I help people build IT careers.
+        Engagements are scoped case by case.
+      </p>
+
+      <div class="grid wide" style="margin-top:28px">
+        {offers.map((o) => (
+          <div class="card" id={o.id}>
+            <h3>{o.title}</h3>
+            <p class="muted">{o.text}</p>
+            <p class="small"><strong>Good for:</strong> {o.fit}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2>How we would work together</h2>
+      <ol class="steps">
+        {steps.map((s) => (
+          <li><span class="n">{s.n}</span><div><strong>{s.t}</strong><p class="muted">{s.d}</p></div></li>
+        ))}
+      </ol>
+
+      <h2>The experience behind the advice</h2>
+      <p style="max-width:62ch">
+        15+ years leading infrastructure, security and operations in industrial and government environments; CCIE Data
+        Center for over ten years; PMP certified; and delivery of SAP ERP infrastructure, disaster recovery and a
+        company-wide security governance framework. <a href="/work">See the projects and certifications</a>.
+      </p>
+
+      <div class="note" style="margin-top:32px">
+        <p><strong>Start a conversation.</strong> Email <a href={`mailto:${SITE.email}?subject=Advisory%20enquiry`}>{SITE.email}</a> with your challenge and timeline.</p>
+        <p class="muted small" style="margin:0">I work independently, and the views on this site are my own.</p>
+      </div>
+    </div>
+  </section>
+</Base>

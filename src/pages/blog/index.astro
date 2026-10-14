@@ -1,0 +1,23 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { getCollection } from 'astro:content';
+import { CATEGORIES } from '../../config';
+
+const posts = (await getCollection('blog', (p) => !p.data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Base title="Blog" description="Practical IT fixes, security basics and career guidance.">
+  <section class="section">
+    <div class="narrow">
+      <h1>Blog</h1>
+      <nav class="filters" aria-label="Categories">
+        <a href="/blog" aria-current="page">All</a>
+        {Object.entries(CATEGORIES).map(([key, c]) => <a href={`/blog/category/${key}`}>{c.label}</a>)}
+      </nav>
+      {posts.length ? <PostList posts={posts} /> : <p class="muted">First posts are on the way.</p>}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { getCollection } from 'astro:content';
+import { SITE, CATEGORIES } from '../config';
+
+const posts = (await getCollection('blog', (p) => !p.data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+---
+
+<Base>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <p class="eyebrow">IT leadership, cyber security and teaching</p>
+        <h1>Enterprise IT leadership, explained in plain language.</h1>
+        <p class="lead">
+          I'm {SITE.owner}. I lead IT infrastructure, security and operations for a large organisation in Riyadh, and I
+          write here so others can fix problems faster and grow their careers.
+        </p>
+        <div class="cta-row">
+          <a class="btn" href="/blog">Read the blog</a>
+          {SITE.consulting && <a class="btn ghost" href="/services">Work with me</a>}
+          <a class="btn ghost" href="/work">See my experience</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>15+</strong><span>years in enterprise IT</span></div>
+          <div class="stat"><strong>10 yrs</strong><span>as a CCIE (Data Center)</span></div>
+          <div class="stat"><strong>20+</strong><span>professional certifications</span></div>
+        </div>
+      </div>
+      <figure class="portrait">
+        <img src="/images/abbas-portrait.jpg" alt="Portrait of Ghulam Abbas" width="800" height="1000" fetchpriority="high" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section strip-section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 style="margin-top:0">On the road</h2>
+        <a href="/work#conferences">All conferences</a>
+      </div>
+      <div class="strip">
+        <a href="/work#conferences"><img src="/images/cisco-live-las-vegas-2026.jpg" alt="Ghulam Abbas at Cisco Live Las Vegas 2026" loading="lazy" /><span>Cisco Live, Las Vegas</span></a>
+        <a href="/work#conferences"><img src="/images/sector-2026.jpg" alt="Ghulam Abbas at Black Hat SecTor 2026, Toronto" loading="lazy" /><span>SecTor, Toronto</span></a>
+        <a href="/work#conferences"><img src="/images/melbourne-2025-entrance.jpg" alt="Ghulam Abbas at the Cisco Live Melbourne entrance" loading="lazy" /><span>Cisco Live Melbourne</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 style="margin-top:0">What you'll find here</h2>
+      <div class="grid">
+        {
+          Object.entries(CATEGORIES).map(([key, c]) => (
+            <a class="card" href={`/blog/category/${key}`}>
+              <h3>{c.label}</h3>
+              <p class="muted">{c.blurb}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 style="margin-top:0">Latest posts</h2>
+        <a href="/blog">All posts →</a>
+      </div>
+      <PostList posts={posts} />
+    </div>
+  </section>
+  {SITE.consulting && (
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <div class="section-head">
+          <h2 style="margin-top:0">Work with me</h2>
+          <a href="/services">All services →</a>
+        </div>
+        <div class="grid">
+          <a class="card" href="/services#advisory"><h3>Infrastructure &amp; security advisory</h3><p class="muted">Independent review and guidance on data centers, networks, security governance and disaster recovery.</p></a>
+          <a class="card" href="/services#training"><h3>Training &amp; mentoring</h3><p class="muted">Workshops for IT teams and one-to-one guidance for people building an IT career.</p></a>
+          <a class="card" href="/work"><h3>See the track record</h3><p class="muted">Projects, certifications and the 10-year CCIE milestone behind the advice.</p></a>
+        </div>
+      </div>
+    </section>
+  )}
+</Base>

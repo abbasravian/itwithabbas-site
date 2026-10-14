@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+---
+
+<Base title="About" description="Ghulam Abbas: IT infrastructure and operations leader, CCIE Data Center, PMP, with 15+ years across government, industrial and multinational environments.">
+  <section class="section">
+    <div class="narrow prose">
+      <h1>About me</h1>
+      <p>
+        I'm {SITE.owner}, an IT infrastructure and operations leader based in {SITE.location}. For more than 15 years I
+        have designed, secured and run the technology that organisations depend on: data centers, networks, ERP
+        platforms, disaster recovery and cyber security programs.
+      </p>
+      <p>
+        I started as a network engineer, building enterprise and carrier networks. I moved into designing a multi-agency
+        government data center, consulting for Cisco clients across the region, and then leading IT for a large
+        industrial company, where I answer for strategy, security and uptime at board level.
+      </p>
+
+      <h2>What I focus on</h2>
+      <ul>
+        <li><strong>Infrastructure and operations:</strong> data centers, high availability, disaster recovery and business continuity.</li>
+        <li><strong>Cyber security and compliance:</strong> ISO 27001, Zero Trust thinking, firewalls, access control and security governance.</li>
+        <li><strong>Digital transformation:</strong> ERP delivery, SD-WAN, cloud adoption and modernising legacy infrastructure.</li>
+        <li><strong>Leading people and vendors:</strong> clear roadmaps, SLAs and teams that deliver.</li>
+      </ul>
+
+      <h2>Staying current</h2>
+      <p>
+        I attend the main industry events in person: Cisco Live in the USA (2024 and 2026) and Melbourne (2025), and
+        SecTor in Toronto (2024 and 2026). In 2025 I also marked ten years as a CCIE.
+        <a href="/work#conferences">See the photos and details</a>.
+      </p>
+
+      <h2>Credentials</h2>
+      <p>
+        CCIE Data Center, PMP, CCNP Enterprise and Security, Juniper JNCIP-ENT, AWS Solutions Architect Associate,
+        Microsoft Azure Administrator, and more. I hold a Master of Science in Telecommunication and an MBA.
+        <a href="/work#certifications">See the full list</a>.
+      </p>
+
+      <h2>Why this site</h2>
+      <p>
+        Good IT help is often hard to find, or buried in jargon. People lose time and money to problems that a clear
+        explanation could have solved in ten minutes, and to security mistakes that are easy to avoid. This blog is my
+        attempt to give back: practical fixes, plain-language security advice, and honest career guidance for people
+        starting out or moving up in IT.
+      </p>
+      <p>
+        I write in English. I'm Pakistani, based in Saudi Arabia, and I speak Urdu and Punjabi as well.
+      </p>
+
+      <div class="note">
+        <p><strong>Want to connect?</strong> Find me on <a href={SITE.linkedin} rel="me noopener" target="_blank">LinkedIn</a> or
+        <a href="/contact">send a message</a>.</p>
+      </div>
+    </div>
+  </section>
+</Base>

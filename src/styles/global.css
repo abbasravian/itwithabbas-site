@@ -247,7 +247,7 @@ body:has(.home-dark) h1, body:has(.home-dark) h2, body:has(.home-dark) h3 { font
 .home-dark .stat { background: #101e35; border: 1px solid #1f3150; border-radius: 16px; padding: 18px 20px; }
 .home-dark .stat strong { color: var(--hero-accent); font-size: clamp(1.7rem, 3vw, 2.3rem); line-height: 1.1; }
 .home-dark .stat span { color: #b6c3d4; }
-.home-dark .portrait::before { inset: -14px -14px 14px 14px; border-radius: 28px; }
+.home-dark .portrait::before { inset: -12px; border-radius: 32px; }
 .home-dark .portrait img { border-radius: 24px; }
 .strip a { border-radius: 16px; aspect-ratio: 4 / 3; }
 .strip span { left: 12px; right: auto; bottom: 12px; padding: 6px 12px; border-radius: 8px; background: #0a1424e6; }
